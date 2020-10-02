@@ -1,0 +1,5 @@
+{
+  "name": "Maid DB Development Site",
+  "database": "'mongodb://localhost/maiddb",
+  "jwtPrivateKey": "maid_jwt_key_development"
+}

@@ -1,0 +1,6 @@
+{
+  "name": "Maid DB Test Site",
+  "database": "'mongodb://localhost/maiddb-test",
+  "roundsOfSalt": 10,
+  "jwtPrivateKey": "maid_jwt_key_test"
+}

@@ -1,0 +1,19 @@
+POST http://localhost:3000/api/cases
+x-maid-token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1Zjc1YWJmNDc2ZjlkZWYyZWUzNjBmYTAiLCJlbWFpbCI6Imh5ZmFuZHJlYUBnbWFpbC5jb20iLCJuYW1lIjoiQWRtaW4iLCJpYXQiOjE2MDE2MjEzODgsImV4cCI6MTYwMjIyNjE4OH0.gwN76lKfwI9lEijQz2Ps8-HtFK6oo3HW5jKKypWO6bM
+content-type: application/json
+
+{
+    "maid": {
+        "name": "Maid Name",
+        "nationality": "ID",
+        "yearOfBirth": 2002,
+        "monthOfBirth": 12
+    },
+    "categories": ["Bad to kids"],
+    "details": "a long description that is at least 30 characters",
+    "reference": {
+        "source": "Facebook",
+        "link": "https://alink",
+        "postDate": "2019-09"
+    }
+}

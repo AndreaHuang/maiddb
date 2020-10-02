@@ -1,0 +1,10 @@
+{
+  "name": "Maid DB",
+  "service": "maid-db",
+  "recordsPerPage": 25,
+  "daysToRetainInfoLogs": 7,
+  "daysToRetainErrorLogs": 30,
+  "roundsOfSalt": 10,
+  "jwtPrivateKey": "maid_jwt_key_default",
+  "daysOfJwtValidness": 7
+}

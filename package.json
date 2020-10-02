@@ -1,0 +1,36 @@
+{
+  "name": "maiddb",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --watchAll --runInBand --detectOpenHandles"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "config": "^3.3.2",
+    "debug": "^4.2.0",
+    "express": "^4.17.1",
+    "express-async-errors": "^3.1.1",
+    "helmet": "^4.1.1",
+    "joi": "^17.2.1",
+    "joi-objectid": "^3.0.1",
+    "joi-password-complexity": "^4.2.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.20",
+    "moment": "^2.29.0",
+    "mongoose": "^5.10.7",
+    "morgan": "^1.10.0",
+    "pug": "^3.0.0",
+    "winston": "^3.3.3",
+    "winston-mongodb": "^5.0.5"
+  },
+  "devDependencies": {
+    "jest": "^26.4.2",
+    "supertest": "^5.0.0"
+  }
+}
