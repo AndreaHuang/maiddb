@@ -5,8 +5,6 @@ const MetaPaginated = require("../model/MetaPaginated");
 
 module.exports = function (Model, filter) {
   return async (req, res, next) => {
-    logger.info("req.query: " + JSON.stringify(req.query));
-
     const metadata = new MetaPaginated();
     const result = {};
     let limit;

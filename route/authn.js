@@ -38,7 +38,10 @@ router.post("/", async (req, res) => {
   //Generate token and return
   const token = user.generateAuthToken();
 
-  return res.header(constants.HEADER_AUTH_TOKEN, token).send();
+  return res
+    .header(constants.HEADER_AUTH_TOKEN, token)
+    .header("Access-Control-Expose-Headers", constants.HEADER_AUTH_TOKEN)
+    .send();
 });
 
 module.exports = router;

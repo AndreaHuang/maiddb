@@ -3,6 +3,7 @@ module.exports = Object.freeze({
   CONFIG_JWT_PRIVATE_KEY: "jwtPrivateKey",
   CONFIG_DATABASE: "database",
   CONFIG_ROUNDOFSALT: "roundsOfSalt",
+  CONFIG_REQUEST_SIZE: "requestBodySizeLimit",
   STATUS_CASE: {
     SAVED: "SAVED",
     PUBLISHED: "PUBLISHED",

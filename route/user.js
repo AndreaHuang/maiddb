@@ -53,7 +53,10 @@ router.post("/", async (req, res) => {
   winston.info("New user created: ", result);
 
   const token = user.generateAuthToken();
-  return res.header(constants.HEADER_AUTH_TOKEN, token).send(result);
+  return res
+    .header(constants.HEADER_AUTH_TOKEN, token)
+    .header("Access-Control-Expose-Headers", constants.HEADER_AUTH_TOKEN)
+    .send(result);
 });
 
 module.exports = router;

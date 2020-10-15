@@ -13,6 +13,7 @@ const UserSchema = new Schema({
   name: {
     type: String,
     required: true,
+    unique: true,
     minlength: 5,
     maxlength: 50,
   },
@@ -51,7 +52,7 @@ const User = mongoose.model("User", UserSchema);
 
 const joiSchema = Joi.object({
   name: Joi.string().required().min(5).max(50),
-  email: Joi.string().required().min(5).max(50).email(),
+  email: Joi.string().required().email(),
   password: Joi.string().required().min(6).max(20),
 }).required();
 

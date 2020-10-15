@@ -24,7 +24,7 @@ require("./startup/route")(app);
 //error handling must be the last one
 app.use(error);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3001;
 const env = app.get("env");
 
 const server = app.listen(port, () => {

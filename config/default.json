@@ -6,5 +6,6 @@
   "daysToRetainErrorLogs": 30,
   "roundsOfSalt": 10,
   "jwtPrivateKey": "maid_jwt_key_default",
-  "daysOfJwtValidness": 7
+  "daysOfJwtValidness": 7,
+  "requestBodySizeLimit": "50mb"
 }
