@@ -1,35 +1,41 @@
 const mongoose = require("mongoose");
-const { createModel } = require("mongoose-gridfs");
-const { Readable } = require("stream");
 const winston = require("winston");
+const { GridFSBucket, ObjectID } = require("mongodb");
+const config = require("config");
+const multer = require("multer");
+const GridFsStorage = require("multer-gridfs-storage");
 
-let AppFile;
-const initAppFile = () => {
-  winston.info("initiaiing AppFile");
-  const connection = mongoose.connection;
-  AppFile = createModel({
-    modelName: "AppFile",
-    connection: connection,
+const database = config.get("database");
+
+const getUploadStorage = () => {
+  winston.debug("-------getUploadStorage() is called------");
+  const storage = new GridFsStorage({
+    url: database,
+    options: { useUnifiedTopology: true },
   });
-  console.log(AppFile);
-  //   Object.freeze(AppFile);
+  const upload = multer({ storage });
+  return upload;
 };
 
-const saveFile = ({ data, name, type }) => {
-  // create Node Read Stream
-  const readStream = Readable.from(data);
-
-  const options = { filename: name, contentType: type };
+const readFile = (res, _id) => {
+  winston.debug(`-------readFile() is called for ${_id}------`);
   return new Promise((resolve, reject) => {
-    AppFile.write(options, readStream, (error, file) => {
-      if (error) {
+    const connection = mongoose.connection;
+    const bucket = new GridFSBucket(connection.db);
+    bucket
+      .openDownloadStream(new ObjectID(_id))
+
+      .on("file", () => {
+        winston.debug("found the file");
+      })
+      .on("error", (error) => {
         reject({ message: error.message });
-      } else {
-        console.log(file);
-        resolve(JSON.stringify({ _id: file._id }));
-      }
-    });
+      })
+      .on("end", () => {
+        winston.debug("done retreiving the file");
+        resolve();
+      })
+      .pipe(res); //Must put pipe to the last so that the error can be handled
   });
 };
-
-module.exports = { initAppFile, saveFile };
+module.exports = { getUploadStorage, readFile };

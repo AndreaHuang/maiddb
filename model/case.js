@@ -6,7 +6,6 @@ const minBirthYear = currentYear - 65;
 const maxBirthYear = currentYear - 18;
 
 const constants = require("../config/constants");
-const { AppFile } = require("./appFile_Buffer");
 
 const ExternalSourceSchema = new mongoose.Schema({
   source: {
@@ -38,7 +37,6 @@ const AppFileSchema = new mongoose.Schema(
   {
     _id: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "AppFile",
     },
     name: {
       type: String,
@@ -139,10 +137,10 @@ const joiScheme = Joi.object({
     .max(10)
     .items(
       Joi.object({
+        id: Joi.string().required(),
         name: Joi.string().required(),
-        type: Joi.string().required(),
-        data: Joi.string().required(),
-        size: Joi.number().integer().required(),
+        type: Joi.string(),
+        size: Joi.number().integer(),
         lastModified: Joi.number(),
       })
     ),
