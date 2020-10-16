@@ -30,12 +30,12 @@ module.exports = function (Model, filter) {
       if (limit < 0) {
         limit = config.get("recordsPerPage");
       }
-      metadata.recordsPerPage = limit;
     }
     //if don't have query parameter limit, use the default value from config
     if (!limit) {
       limit = config.get("recordsPerPage");
     }
+    metadata.recordsPerPage = limit;
 
     // if has query paramter page
     if (req.query.page != undefined) {
@@ -46,7 +46,6 @@ module.exports = function (Model, filter) {
       metadata.currentPage = page;
       skip = limit * (page - 1);
     }
-
     totalRecords = await Model.countDocuments(filter).exec();
     data = await Model.find(filter).skip(skip).limit(limit).exec();
 
@@ -59,7 +58,6 @@ module.exports = function (Model, filter) {
     }
     metadata.firstPage = 1;
     metadata.lastPage = Math.ceil(totalRecords / limit);
-
     result.meta = metadata;
     result.data = data;
 

@@ -10,7 +10,11 @@ const { Case, joiScheme } = require("../model/case");
 const constants = require("../config/constants.js");
 
 router.get("/", async (req, res) => {
-  const filter = {};
+  const searchKeyword = req.query.search;
+  let filter = {};
+  if (searchKeyword) {
+    filter["maid.name"] = new RegExp(searchKeyword, "i");
+  }
   const result = await paginatedData(Case, filter)(req, res);
   res.send(result);
 });
