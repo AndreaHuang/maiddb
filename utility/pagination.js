@@ -38,14 +38,16 @@ module.exports = function (Model, filter) {
     metadata.recordsPerPage = limit;
 
     // if has query paramter page
+    let page = 1;
     if (req.query.page != undefined) {
-      let page = parseInt(req.query.page);
-      if (page < 1) {
-        page = 1;
+      let pageParsed = parseInt(req.query.page);
+      if (pageParsed > 0) {
+        page = pageParsed;
       }
-      metadata.currentPage = page;
-      skip = limit * (page - 1);
     }
+    metadata.currentPage = page;
+    skip = limit * (page - 1);
+
     totalRecords = await Model.countDocuments(filter).exec();
     data = await Model.find(filter).skip(skip).limit(limit).exec();
 

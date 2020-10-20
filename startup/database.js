@@ -14,7 +14,7 @@ module.exports = () => {
     (err) => {
       if (err) {
         winston.error(
-          `error when connect to to database ${database}, details: ${ex.message}`
+          `error when connect to to database ${database}, details: ${err.message}`
         );
         process.exit(-1);
       } else {
