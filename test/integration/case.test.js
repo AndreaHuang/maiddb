@@ -23,8 +23,7 @@ describe("/api/cases", () => {
         maid: {
           name: "Maid Name",
           nationality: "ID",
-          yearOfBirth: 2002,
-          monthOfBirth: 12,
+          birthday: "2002-12",
         },
         categories: ["Bad to kids"],
         details: "a long description that is at least 30 characters",

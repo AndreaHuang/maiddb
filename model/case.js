@@ -6,6 +6,21 @@ const minBirthYear = currentYear - 65;
 const maxBirthYear = currentYear - 18;
 
 const constants = require("../config/constants");
+const ONE_MONTH = 30*24*3600*1000;
+const ONE_DAY = 24*3600*1000;
+const ONE_HOUR = 3600*1000;
+
+const humanizeDuration =require("humanize-duration"); 
+
+const timeDiffDisplay =(timeDiff)=>{
+  if(timeDiff>ONE_DAY){ //
+    return humanizeDuration(timeDiff,{ round:true,largest: 1 ,units: ["d"] });
+  } else if(timeDiff>ONE_HOUR){
+     return humanizeDuration(timeDiff,{ round:true,largest: 1 ,units: ["h"] });
+  }else {
+     return humanizeDuration(timeDiff,{ round:true,largest: 1 ,units: ["m"] });
+  }
+}
 
 const ExternalSourceSchema = new mongoose.Schema({
   source: {
@@ -101,6 +116,7 @@ const CaseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  
   status: {
     type: String,
     enum: constants.STATUS_CASE.values,
@@ -111,8 +127,21 @@ const CaseSchema = new mongoose.Schema({
     type: [AppFileSchema],
     maxlength: 10,
   },
-});
+}, (opts = { toJSON: { virtuals: true } }));
 
+CaseSchema.virtual("postDateDisplay").get(function () {
+  if(this.reference) return this.reference.postDate;
+  const diff =  new Date() - this.postDate ;
+  if(diff > ONE_MONTH){
+    return this.postDate.toLocaleDateString('en-GB')
+  } else {
+    return timeDiffDisplay(diff);
+  }
+});
+CaseSchema.virtual("authorDisplay").get(function () {
+  if(this.reference) return "";
+  else return this.author;
+});
 const joiScheme = Joi.object({
   maid: Joi.object({
     name: Joi.string().required().min(3).max(100),

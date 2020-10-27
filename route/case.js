@@ -16,6 +16,7 @@ router.get("/", async (req, res) => {
     filter["maid.name"] = new RegExp(searchKeyword, "i");
   }
   const result = await paginatedData(Case, filter)(req, res);
+  console.log(result);
   res.send(result);
 });
 
