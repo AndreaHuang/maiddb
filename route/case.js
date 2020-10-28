@@ -16,7 +16,6 @@ router.get("/", async (req, res) => {
     filter["maid.name"] = new RegExp(searchKeyword, "i");
   }
   const result = await paginatedData(Case, filter)(req, res);
-  console.log(result);
   res.send(result);
 });
 
@@ -49,19 +48,15 @@ router.post("/", authz, async (req, res) => {
   }
   //handle files is any
   if (req.body.files) {
-    const newFiles = req.body.files.map((fileItem) => {
-      return {
-        _id: fileItem.id,
-        name: fileItem.name,
-      };
-    });
+    const newFiles = req.body.files.map((fileItem) => 
+      fileItem.id);
     newCase.files = newFiles;
   }
 
   await newCase.save();
   winston.info("New Case created", newCase._id.toString());
 
-  return res.status(200).send(newCase._id);
+  return res.status(200).send(newCase._id.toString());
 });
 
 module.exports = router;

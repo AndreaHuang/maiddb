@@ -1,3 +1,6 @@
 {
-    "database":"MAID_DB"
+    "database":"MAID_DB",
+    "gcpBucketName":"GCP_BUCKET",
+    "gcpProjectId":"GCP_PROJECT",
+    "gcpStorageUrl":"GCP_URL"
 }

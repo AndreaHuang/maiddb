@@ -1,16 +1,19 @@
 const mongoose = require("mongoose");
 const Joi = require("joi");
+const humanizeDuration =require("humanize-duration"); 
+
 
 const currentYear = new Date().getFullYear();
 const minBirthYear = currentYear - 65;
 const maxBirthYear = currentYear - 18;
 
 const constants = require("../config/constants");
+
+const {AppFile} = require("../model/appFile");
+const { getUrl } = require("../storage/googleCloudStorageAppFile");
 const ONE_MONTH = 30*24*3600*1000;
 const ONE_DAY = 24*3600*1000;
 const ONE_HOUR = 3600*1000;
-
-const humanizeDuration =require("humanize-duration"); 
 
 const timeDiffDisplay =(timeDiff)=>{
   if(timeDiff>ONE_DAY){ //
@@ -47,21 +50,6 @@ const AuthorSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
-const AppFileSchema = new mongoose.Schema(
-  {
-    _id: {
-      type: mongoose.Schema.Types.ObjectId,
-    },
-    name: {
-      type: String,
-      required: true,
-    },
-  },
-  (opts = { toJSON: { virtuals: true } })
-);
-AppFileSchema.virtual("url").get(function () {
-  return "/file/" + this._id;
 });
 const MaidSchema = new mongoose.Schema({
   name: {
@@ -124,7 +112,7 @@ const CaseSchema = new mongoose.Schema({
     default: constants.STATUS_CASE.SAVED,
   },
   files: {
-    type: [AppFileSchema],
+    type: [String],
     maxlength: 10,
   },
 }, (opts = { toJSON: { virtuals: true } }));

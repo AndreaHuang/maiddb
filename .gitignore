@@ -2,3 +2,4 @@ node_modules/
 logs/
 initdata/
 env_vars.yaml
+maiddb-files-gcp-credential.json

@@ -1,38 +1,26 @@
 const mongoose = require("mongoose");
-const winston = require("winston");
-const { GridFSBucket, ObjectID } = require("mongodb");
-const config = require("config");
-const multer = require("multer");
-const GridFsStorage = require("multer-gridfs-storage");
+const { Schema } = mongoose;
+const fileSchema =  new Schema({
+    url:{
+        type:String,
+    },
+    originalName:{
+        type:String,
+        required:true
+    },
+    size:{
+        type:Number,
+        required:true
+    },
+    encoding:{
+        type:String
+    },
+    uploadBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+    }
+});
 
-const database = config.get("database");
+const AppFile = mongoose.model("AppFile", fileSchema);
 
-const getUploadStorage = () => {
-  // winston.debug("-------getUploadStorage() is called------");
-  const storage = new GridFsStorage({
-    url: database,
-    options: { useUnifiedTopology: true },
-  });
-  const upload = multer({ storage });
-  return upload;
-};
-
-const readFile = (res, _id) => {
-  // winston.debug(`-------readFile() is called for ${_id}------`);
-  return new Promise((resolve, reject) => {
-    const connection = mongoose.connection;
-    const bucket = new GridFSBucket(connection.db);
-    bucket
-      .openDownloadStream(new ObjectID(_id))
-
-      .on("file", () => {})
-      .on("error", (error) => {
-        reject({ message: error.message });
-      })
-      .on("end", () => {
-        resolve();
-      })
-      .pipe(res); //Must put pipe to the last so that the error can be handled
-  });
-};
-module.exports = { getUploadStorage, readFile };
+module.exports = { AppFile };

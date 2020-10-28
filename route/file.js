@@ -1,24 +1,21 @@
 const express = require("express");
 require("express-async-errors");
 const router = express.Router();
+var multer  = require('multer')
+var upload = multer()
 
 const authz = require("../middleware/authz.js");
-const { readFile, getUploadStorage } = require("../model/appFile");
+const {writeFile } = require("../storage/googleCloudStorageAppFile");
 
-const upload = getUploadStorage();
+router.post("/", authz, upload.array("files",1),async (req, res) => {
+ const result = await writeFile(req.files[0],req.user);
 
-router.get("/:id", async (req, res) => {
-  const id = req.params.id;
-  if (id) {
-    const result = await readFile(res, id);
-  } else {
-    return res.status(400).send();
-  }
-});
-
-router.post("/", authz, upload.array("files", 1), async (req, res) => {
-  console.log(req.files);
-  res.send(req.files[0].id.toString());
+ if(result.url){
+   res.status(201).send(result.url);
+ } else if(result.error){
+   res.status(500).send(result.error);
+ }
+ 
 });
 
 module.exports = router;

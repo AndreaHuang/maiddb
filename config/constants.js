@@ -20,6 +20,10 @@ module.exports = Object.freeze({
       errorCode: "SERR001",
       message: "System Error.",
     },
+    SERROR002: {
+      errorCode: "SERR002",
+      message: "Fail to upload file.",
+    },
     BERROR001: {
       errorCode: "BERR001",
       message: "Validation Error.",
