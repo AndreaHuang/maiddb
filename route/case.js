@@ -39,8 +39,7 @@ router.post("/", authz, async (req, res) => {
     maid: {
       name: req.body.maid.name,
       nationality: req.body.maid.nationality,
-      yearOfBirth: req.body.maid.yearOfBirth,
-      monthOfBirth: req.body.maid.monthOfBirth,
+      birthday: req.body.maid.birthday,
     },
     categories: req.body.categories,
     details: req.body.details,

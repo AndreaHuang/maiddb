@@ -63,17 +63,9 @@ const MaidSchema = new mongoose.Schema({
     enum: constants.MAID_NATIONALITY.values,
     required: true,
   },
-  yearOfBirth: {
-    type: Number,
-    required: false,
-    min: minBirthYear,
-    max: maxBirthYear,
-  },
-  monthOfBirth: {
-    type: Number,
-    requried: false,
-    min: 1,
-    max: 12,
+  birthday: {
+    type: String,
+    required: false
   },
 });
 
@@ -121,14 +113,14 @@ CaseSchema.virtual("postDateDisplay").get(function () {
   if(this.reference) return this.reference.postDate;
   const diff =  new Date() - this.postDate ;
   if(diff > ONE_MONTH){
-    return this.postDate.toLocaleDateString('en-GB')
+    return this.postDate.toISOString().split("T")[0];
   } else {
     return timeDiffDisplay(diff);
   }
 });
-CaseSchema.virtual("authorDisplay").get(function () {
+CaseSchema.virtual("author.authorDisplay").get(function () {
   if(this.reference) return "";
-  else return this.author;
+  else return this.author.name;
 });
 const joiScheme = Joi.object({
   maid: Joi.object({
@@ -140,15 +132,14 @@ const joiScheme = Joi.object({
         constants.MAID_NATIONALITY.Philippines,
         constants.MAID_NATIONALITY.Thailand
       ),
-    yearOfBirth: Joi.number().integer().min(minBirthYear).max(maxBirthYear),
-    monthOfBirth: Joi.number().integer().min(1).max(12),
+    birthday: Joi.string(),
   }).required(),
   categories: Joi.array().max(50),
   details: Joi.string().required().min(5).max(5000),
   reference: Joi.object({
     source: Joi.string().required().min(3).max(100),
     link: Joi.string(),
-    postDate: Joi.string().isoDate(),
+    postDate: Joi.string(),
   }),
   files: Joi.array()
     .max(10)
