@@ -2,12 +2,25 @@ const express = require("express");
 require("express-async-errors");
 const router = express.Router();
 const winston = require("winston");
+const {ObjectID} = require("mongodb");
 
 const authz = require("../middleware/authz.js");
+const objectId = require("../middleware/objectId");
 const paginatedData = require("../utility/pagination");
 const validateRequestBody = require("../utility/validation");
 const { Case, joiScheme } = require("../model/case");
 const constants = require("../config/constants.js");
+
+router.get("/:id",objectId, async (req, res) => {
+ 
+  const caseId = req.params.id;
+  const result = await Case.findById(caseId);
+  if(!result){
+    res.status(404);
+  }else{
+    res.send(result);
+  }
+});
 
 router.get("/", async (req, res) => {
   const searchKeyword = req.query.search;

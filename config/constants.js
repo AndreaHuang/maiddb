@@ -52,5 +52,6 @@ module.exports = Object.freeze({
       errorCode: "BERR007",
       message: "Not privilege for the operation.",
     },
+    
   },
 });
