@@ -4,6 +4,9 @@ module.exports = Object.freeze({
   CONFIG_DATABASE: "database",
   CONFIG_ROUNDOFSALT: "roundsOfSalt",
   CONFIG_REQUEST_SIZE: "requestBodySizeLimit",
+  CONFIG_GCP_PROJECID:"gcpProjectId",
+  CONFIG_GCP_BUCKET:"gcpBucketName",
+  CONFIG_GCP_STORAGE_URL:"gcpStorageUrl",
   STATUS_CASE: {
     SAVED: "SAVED",
     PUBLISHED: "PUBLISHED",

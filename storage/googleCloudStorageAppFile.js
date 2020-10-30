@@ -10,9 +10,9 @@ const constants = require("../config/constants");
 const {AppFile} = require("../model/appFile");
 
 
-const bucketName=config.get(gcpBucketName);// "maiddb-files";
-const projectId=config.get(gcpProjectId);//"maiddb";
-const gcpUrl=config.get(gcpStorageUrl);//"https://storage.cloud.google.com/";
+const bucketName=config.get(constants.CONFIG_GCP_BUCKET);// "maiddb-files";
+const projectId=config.get(constants.CONFIG_GCP_PROJECID);//"maiddb";
+const gcpUrl=config.get(constants.CONFIG_GCP_PROJECID);//"https://storage.cloud.google.com/";
 const credentialFile=path.join(__dirname,"../maiddb-files-gcp-credential.json");
 const dummyExtension = ".png";
 const storage = new Storage({
