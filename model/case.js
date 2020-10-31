@@ -96,6 +96,9 @@ const CaseSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  reportDate:{ /*date string yyyy-MM-dd, if it is external, then it is the post date of the original link. if it is reported in maiddb, then it is the post date of the case */
+    type: String,
+  },
   
   status: {
     type: String,

@@ -24,7 +24,7 @@ router.get("/:id",objectId, async (req, res) => {
 
 router.get("/", async (req, res) => {
   const searchKeyword = req.query.search;
-  const sortBy={postDate:"desc"};
+  const sortBy={reportDate:"desc"};
   let filter = {};
   if (searchKeyword) {
     filter["maid.name"] = new RegExp(searchKeyword, "i");
@@ -49,6 +49,7 @@ router.post("/", authz, async (req, res) => {
       name: req.user.name,
     },
     postDate: Date.now(),
+    
     status: constants.STATUS_CASE.SAVED,
   });
 
@@ -56,9 +57,13 @@ router.post("/", authz, async (req, res) => {
     newCase.reference = {
       source: req.body.reference.source,
       link: req.body.reference.link,
-      postDate: req.body.reference.postDate,
+      postDate: req.body.reference.postDate.split("T")[0],
     };
+     newCase.reportDate = newCase.reference.postDate;
+  } else{
+    newCase.reportDate = newCase.postDate.toISOString().split("T")[0];
   }
+ 
   //handle files is any
   if (req.body.files) {
     const newFiles = req.body.files.map((fileItem) => 
