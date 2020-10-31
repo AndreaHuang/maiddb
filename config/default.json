@@ -10,5 +10,5 @@
   "requestBodySizeLimit": "50mb",
   "gcpBucketName":"maiddb-files-test",
   "gcpProjectId":"maiddb",
-  "gcpStorageUrl":"https://storage.googleapis.com/"
+  "gcpStorageUrl":"https://storage.cloud.google.com"
 }

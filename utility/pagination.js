@@ -3,7 +3,7 @@ const logger = require("winston");
 const config = require("config");
 const MetaPaginated = require("../model/MetaPaginated");
 
-module.exports = function (Model, filter) {
+module.exports = function (Model, filter,sortBy) {
   return async (req, res, next) => {
     const metadata = new MetaPaginated();
     const result = {};
@@ -16,9 +16,9 @@ module.exports = function (Model, filter) {
       metadata.returnAllRecords = true;
       result.meta = metadata;
       if (filter) {
-        result.data = await Model.find(filter).exec();
+        result.data = await Model.find(filter).sort(sortBy).exec();
       } else {
-        result.data = await Model.find().exec();
+        result.data = await Model.find().sort(sortBy).exec();
       }
       return result;
     }
@@ -49,7 +49,7 @@ module.exports = function (Model, filter) {
     skip = limit * (page - 1);
 
     totalRecords = await Model.countDocuments(filter).exec();
-    data = await Model.find(filter).skip(skip).limit(limit).exec();
+    data = await Model.find(filter).sort(sortBy).skip(skip).limit(limit).exec();
 
     metadata.totalRecords = totalRecords;
     if (skip > 0) {

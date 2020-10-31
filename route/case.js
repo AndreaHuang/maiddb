@@ -24,11 +24,12 @@ router.get("/:id",objectId, async (req, res) => {
 
 router.get("/", async (req, res) => {
   const searchKeyword = req.query.search;
+  const sortBy={postDate:"desc"};
   let filter = {};
   if (searchKeyword) {
     filter["maid.name"] = new RegExp(searchKeyword, "i");
   }
-  const result = await paginatedData(Case, filter)(req, res);
+  const result = await paginatedData(Case, filter,sortBy)(req, res);
   res.send(result);
 });
 
