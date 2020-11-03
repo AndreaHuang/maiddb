@@ -1,8 +1,16 @@
 const express = require("express");
+const rendertron = require('rendertron-middleware');
+const BOTS = rendertron.botUserAgents.concat('googlebot');
+const BOT_UA_PATTERN = new RegExp(BOTS.join('|'), 'i');
+
 require("express-async-errors");
 const debugger_startup = require("debug")("startup");
+
+
 const app = express();
 const winston = require("winston");
+const config = require("config");
+const constants = require("./config/constants")
 
 const error = require("./middleware/error");
 
@@ -23,6 +31,10 @@ require("./startup/route")(app);
 
 //error handling must be the last one
 app.use(error);
+app.use(rendertron.makeMiddleware({
+  proxyUrl: config.get(constants.CONFIG_RENDERSTRON),
+  userAgentPattern: BOT_UA_PATTERN
+}));
 
 const port = process.env.PORT || 3001;
 const env = app.get("env");

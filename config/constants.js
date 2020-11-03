@@ -7,6 +7,7 @@ module.exports = Object.freeze({
   CONFIG_GCP_PROJECID:"gcpProjectId",
   CONFIG_GCP_BUCKET:"gcpBucketName",
   CONFIG_GCP_STORAGE_URL:"gcpStorageUrl",
+  CONFIG_RENDERSTRON:"rendertronUrl",
   STATUS_CASE: {
     SAVED: "SAVED",
     PUBLISHED: "PUBLISHED",

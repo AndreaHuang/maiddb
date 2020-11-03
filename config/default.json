@@ -10,5 +10,6 @@
   "requestBodySizeLimit": "50mb",
   "gcpBucketName":"maiddb-files-test",
   "gcpProjectId":"maiddb",
-  "gcpStorageUrl":"https://storage.cloud.google.com"
+  "gcpStorageUrl":"https://storage.cloud.google.com",
+  "rendertronUrl":"https://rendertron-dot-maiddb.df.r.appspot.com/render"
 }

@@ -11,6 +11,13 @@ const validateRequestBody = require("../utility/validation");
 const { Case, joiScheme } = require("../model/case");
 const constants = require("../config/constants.js");
 
+router.get("/id", async (req, res) => {
+
+  const fullData = await Case.find({});
+  const result =fullData.map(item=>item._id);
+  res.send(result);
+});
+
 router.get("/:id",objectId, async (req, res) => {
  
   const caseId = req.params.id;

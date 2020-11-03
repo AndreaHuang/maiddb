@@ -2,5 +2,6 @@
     "database":"MAID_DB",
     "gcpBucketName":"GCP_BUCKET",
     "gcpProjectId":"GCP_PROJECT",
-    "gcpStorageUrl":"GCP_URL"
+    "gcpStorageUrl":"GCP_URL",
+    "rendertronUrl":"RENDERTRON"
 }
