@@ -19,6 +19,7 @@ const joiSchema = Joi.object({
 }).required();
 
 router.post("/", async (req, res) => {
+  console.log(req.body);
   //Validate the input
   validateRequestBody(joiSchema, req.body);
 
@@ -41,7 +42,7 @@ router.post("/", async (req, res) => {
   return res
     .header(constants.HEADER_AUTH_TOKEN, token)
     .header("Access-Control-Expose-Headers", constants.HEADER_AUTH_TOKEN)
-    .send();
+    .send(token);
 });
 
 module.exports = router;
